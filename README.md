@@ -1,73 +1,106 @@
-# React + TypeScript + Vite
+Boa! 🚀
+Criar exercícios práticos é a melhor forma de fixar Jest (testes) e Zustand (gerenciamento de estado). Vou te passar uma lista de **tarefas progressivas** que simulam situações reais de projeto.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+---
 
-Currently, two official plugins are available:
+# 📌 Exercícios para **Zustand**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Nível 1 – Básico
 
-## React Compiler
+1. **Contador global**
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+   * Crie uma store com `count` e as funções `increment` e `decrement`.
+   * Use o estado em dois componentes diferentes e valide que ambos atualizam juntos.
 
-## Expanding the ESLint configuration
+2. **Tema do site**
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+   * Guarde em uma store a preferência de tema (`light` ou `dark`).
+   * Crie um botão que altera o tema e mostre em outro componente qual está ativo.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Nível 2 – Intermediário
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+3. **Lista de tarefas**
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+   * Crie uma store com um array `todos` contendo `{ id, text, completed }`.
+   * Adicione funções `addTodo`, `toggleTodo`, `removeTodo`.
+   * Mostre a lista em um componente e crie outro só com o contador de tarefas concluídas (ambos usando a mesma store).
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+4. **Usuário autenticado**
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+   * Store com `user: null`.
+   * Funções `login(user)` e `logout()`.
+   * Mostre nome do usuário logado em vários lugares diferentes da aplicação.
+
+---
+
+### Nível 3 – Avançado
+
+5. **Carrinho de compras**
+
+   * Store com `items: []` contendo `{ id, name, price, quantity }`.
+   * Funções `addItem`, `removeItem`, `clearCart`, `getTotalPrice`.
+   * Mostre o carrinho em um componente e o total em outro.
+
+---
+
+# 📌 Exercícios para **Jest + Zustand**
+
+### Nível 1 – Básico
+
+1. **Testar funções puras**
+
+   * Teste uma função simples como `sum(a, b)` ou `isEven(n)`.
+   * Use `expect(...).toBe(...)`.
+
+2. **Testar a store (unit test)**
+
+   * Crie uma store simples (ex: contador).
+   * No teste, importe a store e valide:
+
+     ```js
+     const { getState } = useStore; 
+     expect(getState().count).toBe(0);
+     getState().increment();
+     expect(getState().count).toBe(1);
+     ```
+
+---
+
+### Nível 2 – Intermediário
+
+3. **Mock com Jest**
+
+   * Crie uma função que busca dados de uma API (ex: `fetchUsers`).
+   * Teste usando `jest.fn()` ou `jest.mock()` para simular a resposta da API.
+
+4. **Testar a store com dados**
+
+   * Crie a store de **todos**.
+   * Escreva testes unitários para: adicionar, remover e marcar como concluída.
+
+---
+
+### Nível 3 – Avançado
+
+5. **Testar componentes com Zustand + RTL**
+
+   * Exemplo: botão de incremento que usa a store.
+   * Renderize o componente com **React Testing Library**.
+   * Use `fireEvent.click(button)` e verifique se o valor da store mudou.
+
+6. **Integração com API mockada**
+
+   * Componente que ao montar chama uma API e salva no Zustand (`setUsers`).
+   * Teste com `jest.mock()` a chamada da API.
+   * Valide se o Zustand realmente recebeu os dados.
+
+---
+
+⚡ Dica para fixação:
+Monte um mini-projeto tipo **Todo App** ou **Carrinho** e escreva testes para cada ação da store + interação do usuário. Isso já te coloca muito perto de cenários reais em projetos React.
+
+---
+
+Quer que eu monte um **roteiro de 7 dias** com desafios progressivos (do básico ao avançado) em Jest + Zustand pra você praticar diariamente?

@@ -11,7 +11,7 @@ const Task = () => {
     addTask(input);
     setInput("");
   };
-  const { task, addTask, delTask } = useTask();
+  const { task, addTask, delTask, editTask } = useTask();
   return (
     <>
       <main className="w-full h-screen flex flex-col items-center justify-center p-12 gap-4">
@@ -27,7 +27,10 @@ const Task = () => {
           {task.map((item) => (
             <li className="flex items-center gap-4" key={item.id}>
               • {item.text}
+              <div className="flex">
               <button onClick={() => delTask(item.id)}>del</button>
+              <button onClick={() => editTask(item.text, item.id)}>edit</button>
+              </div>
             </li>
           ))}
         </ul>
