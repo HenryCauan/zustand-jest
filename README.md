@@ -104,3 +104,6 @@ Monte um mini-projeto tipo **Todo App** ou **Carrinho** e escreva testes para ca
 ---
 
 Quer que eu monte um **roteiro de 7 dias** com desafios progressivos (do básico ao avançado) em Jest + Zustand pra você praticar diariamente?
+
+
+        set((state) => ({ user: state.user === 'Guest' ? 'Logged in' : 'Guest' }));

@@ -3,9 +3,11 @@ import { persist } from "zustand/middleware";
 
 interface TaskState {
   task: Array<{ id: number; text: string }>;
+  user: "Logged in" | "Guest" | null;
+  changeToggle: (text: string) => void;
   addTask: (text: string) => void;
   delTask: (id: number) => void;
-  editTask: (text: string,id: number) => void;
+  editTask: (id: number, text: string) => void;
 }
 
 export const useTask = create<TaskState>()(
@@ -17,19 +19,33 @@ export const useTask = create<TaskState>()(
           text: "I need study ingles",
         },
       ],
+      user: "Guest",
+      changeToggle: (text) => {
+        console.log("changeToggle foi acionado");
+        set(() => {
+          if (text === "Guest") return { user: "Guest" };
+          if (text === "Logged in") return { user: "Logged in" };
+          return { user: null };
+        });
+      },
       addTask: (text: string) => {
-        set((state) => ({ task: [...state.task, { id: Date.now(), text: text }] }));
+        set((state) => ({
+          task: [...state.task, { id: Date.now(), text: text }],
+        }));
         console.log(`task '${text}' foi adicionada com sucess`);
       },
       delTask: (id: number) => {
-        set((state) => ({ task: [...state.task.filter(elem => elem.id !== id)]}));
+        set((state) => ({
+          task: [...state.task.filter((elem) => elem.id !== id)],
+        }));
         console.log(`elemento ${id} foi deletado`);
       },
-      editTask: (text: string, id: number) => {
+      editTask: (id: number, text: string) =>
         set((state) => ({
-          task: [...state.task, ]
-        }));
-      }
+          task: state.task.map((task) =>
+            task.id === id ? { ...task, text: text } : task
+          ),
+        })),
     }),
     // Para que serve:
     // Identificação: Cada aplicação/componente pode ter sua própria chave no localStorage
